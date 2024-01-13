@@ -116,7 +116,19 @@ const PantryPage = () => {
 
       if (response.ok) {
         alert('Successful Added Item');
-        window.location.reload();
+        const response = await fetch(
+          'https://munch-on-o6cg.onrender.com/api/pantry',
+          {
+            headers: {
+              Authorization: `${token}`,
+            },
+          }
+        );
+
+        const data = await response.json();
+        console.log(data);
+        // Assuming setPantryItems is a state updater function
+        setPantryItems(data.data);
       } else {
         alert('Error Registering Item.');
       }
@@ -134,28 +146,6 @@ const PantryPage = () => {
     });
   };
 
-  const handleSaveEdit = async (itemId) => {
-    try {
-      const authToken = token; // Replace with your actual token
-
-      // Update quantity using fetch
-      await fetch(`https://munch-on-o6cg.onrender.com/api/pantry/${itemId}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `${authToken}`,
-        },
-        body: JSON.stringify({
-          quantity: parseInt(editItem.quantity),
-          unitOfMeasurement: editItem.unitOfMeasurement,
-        }),
-      });
-      window.location.reload();
-    } catch (error) {
-      console.error('Error updating quantity:', error);
-    }
-  };
-
   const handleDeletePantryItem = async (itemId) => {
     try {
       const authToken = token;
@@ -166,10 +156,61 @@ const PantryPage = () => {
         },
       });
       alert('Item deleted successfully.');
-      window.location.reload();
+      const response = await fetch(
+        'https://munch-on-o6cg.onrender.com/api/pantry',
+        {
+          headers: {
+            Authorization: `${token}`,
+          },
+        }
+      );
+
+      const data = await response.json();
+      console.log(data);
+      // Assuming setPantryItems is a state updater function
+      setPantryItems(data.data);
     } catch (error) {
       console.error('Error deleting:', error);
       alert('Error deleting');
+    }
+  };
+
+  const handleSaveEdit = async (itemId) => {
+    try {
+      const authToken = token; // Replace with your actual token
+
+      // Update quantity using fetch
+      const response = await fetch(
+        `https://munch-on-o6cg.onrender.com/api/pantry/${itemId}`,
+        {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `${authToken}`,
+          },
+          body: JSON.stringify({
+            quantity: parseInt(editItem.quantity),
+            unitOfMeasurement: editItem.unitOfMeasurement,
+          }),
+        }
+      );
+
+      if (response.ok) {
+        alert('Item updated successfully.');
+        // Update the local pantryItems state to reflect the changes
+        const updatedPantryItems = [...pantryItems];
+        updatedPantryItems[editingIndex] = {
+          ...updatedPantryItems[editingIndex],
+          quantity: parseInt(editItem.quantity),
+          unitOfMeasurement: editItem.unitOfMeasurement,
+        };
+        setPantryItems(updatedPantryItems);
+        setEditingIndex(-1); // Exit edit mode
+      } else {
+        alert('Error updating item.');
+      }
+    } catch (error) {
+      console.error('Error updating quantity:', error);
     }
   };
 

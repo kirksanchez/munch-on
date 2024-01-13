@@ -140,6 +140,18 @@ const GroceryPage = () => {
           unitOfMeasurement: editItem.unitOfMeasurement,
         }),
       });
+
+      // Update the local groceries state to reflect the changes
+      const updatedGroceries = [...groceries];
+      updatedGroceries[editingIndex] = {
+        ...updatedGroceries[editingIndex],
+        quantity: parseInt(editItem.quantity),
+        unitOfMeasurement: editItem.unitOfMeasurement,
+      };
+      setGroceries(updatedGroceries);
+
+      // Reset the editingIndex to exit edit mode
+      setEditingIndex(-1);
     } catch (error) {
       console.error('Error updating quantity:', error);
     }
@@ -155,7 +167,22 @@ const GroceryPage = () => {
         },
       });
       alert('Item deleted successfully.');
-      window.location.reload();
+      const updateResponse = await fetch(
+        'https://munch-on-o6cg.onrender.com/api/grocery',
+        {
+          headers: {
+            Authorization: `${token}`,
+          },
+        }
+      );
+      if (updateResponse.ok) {
+        // Update the local state with the new data
+        const updatedData = await updateResponse.json();
+        setGroceries(updatedData.data);
+      } else {
+        console.error('Error fetching updated data:', updateResponse.status);
+        // Handle the error as needed
+      }
     } catch (error) {
       console.error('Error deleting:', error);
       alert('Error deleting');
