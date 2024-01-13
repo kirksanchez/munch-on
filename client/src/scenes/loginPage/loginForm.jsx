@@ -44,11 +44,14 @@ const LoginForm = () => {
 
   const loginUser = async (credentials) => {
     try {
-      const response = await fetch('http://localhost:8080/api/users/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(credentials),
-      });
+      const response = await fetch(
+        'https://munch-on-o6cg.onrender.com/api/users/login',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(credentials),
+        }
+      );
       if (!response.ok) {
         throw new Error('Login failed');
       }
@@ -73,11 +76,14 @@ const LoginForm = () => {
         // Include picture handling here if needed
       };
 
-      const response = await fetch('http://localhost:8080/api/users/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      });
+      const response = await fetch(
+        'https://munch-on-o6cg.onrender.com/api/users/register',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        }
+      );
 
       if (!response.ok) {
         const errorData = await response.json();

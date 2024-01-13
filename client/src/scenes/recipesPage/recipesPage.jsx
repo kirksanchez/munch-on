@@ -28,7 +28,9 @@ const RecipesPage = () => {
 
   const fetchRecipes = async () => {
     try {
-      const response = await fetch('http://localhost:8080/api/recipes');
+      const response = await fetch(
+        'https://munch-on-o6cg.onrender.com/api/recipes'
+      );
       if (response.ok) {
         const result = await response.json();
         console.log('Fetched recipes:', result); // Log to see what's being returned
@@ -86,7 +88,7 @@ const RecipesPage = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:8080/api/mealplans/create/${dateString}`,
+        `https://munch-on-o6cg.onrender.com/api/mealplans/create/${dateString}`,
         {
           method: 'POST',
           headers: {
@@ -144,13 +146,16 @@ const RecipesPage = () => {
   const handleAddRecipe = async () => {
     try {
       // Make a POST request to the backend endpoint
-      const response = await fetch('http://localhost:8080/api/recipes', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(newRecipe),
-      });
+      const response = await fetch(
+        'https://munch-on-o6cg.onrender.com/api/recipes',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(newRecipe),
+        }
+      );
 
       if (response.ok) {
         // Fetch the updated list of recipes
@@ -187,7 +192,7 @@ const RecipesPage = () => {
     try {
       // Make a DELETE request to the backend endpoint
       const response = await fetch(
-        `http://localhost:8080/api/recipes/${recipeName}`,
+        `https://munch-on-o6cg.onrender.com/api/recipes/${recipeName}`,
         {
           method: 'DELETE',
           headers: {

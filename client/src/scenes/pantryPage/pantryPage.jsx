@@ -49,11 +49,14 @@ const PantryPage = () => {
       try {
         console.log('Token:', token);
         // Use the token from the Redux store
-        const response = await fetch('http://localhost:8080/api/pantry', {
-          headers: {
-            Authorization: `${token}`,
-          },
-        });
+        const response = await fetch(
+          'https://munch-on-o6cg.onrender.com/api/pantry',
+          {
+            headers: {
+              Authorization: `${token}`,
+            },
+          }
+        );
 
         const data = await response.json();
         console.log(data);
@@ -100,7 +103,7 @@ const PantryPage = () => {
     try {
       const authToken = token; // Assuming `token` is already defined
 
-      const url = 'http://localhost:8080/api/pantry/';
+      const url = 'https://munch-on-o6cg.onrender.com/api/pantry/';
 
       const response = await fetch(url, {
         method: 'POST',
@@ -136,7 +139,7 @@ const PantryPage = () => {
       const authToken = token; // Replace with your actual token
 
       // Update quantity using fetch
-      await fetch(`http://localhost:8080/api/pantry/${itemId}`, {
+      await fetch(`https://munch-on-o6cg.onrender.com/api/pantry/${itemId}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -156,7 +159,7 @@ const PantryPage = () => {
   const handleDeletePantryItem = async (itemId) => {
     try {
       const authToken = token;
-      await fetch(`http://localhost:8080/api/pantry/${itemId}`, {
+      await fetch(`https://munch-on-o6cg.onrender.com/api/pantry/${itemId}`, {
         method: 'DELETE',
         headers: {
           Authorization: `${authToken}`,

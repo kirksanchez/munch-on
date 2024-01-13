@@ -42,11 +42,14 @@ const GroceryPage = () => {
     const fetchData = async () => {
       try {
         // Use the token from the Redux store
-        const response = await fetch('http://localhost:8080/api/grocery', {
-          headers: {
-            Authorization: `${token}`,
-          },
-        });
+        const response = await fetch(
+          'https://munch-on-o6cg.onrender.com/api/grocery',
+          {
+            headers: {
+              Authorization: `${token}`,
+            },
+          }
+        );
         const data = await response.json();
         // Assuming setPantryItems is a state updater function
         setGroceries(data.data);
@@ -74,7 +77,7 @@ const GroceryPage = () => {
     try {
       const authToken = token; // Assuming `token` is already defined
 
-      const url = 'http://localhost:8080/api/grocery/';
+      const url = 'https://munch-on-o6cg.onrender.com/api/grocery/';
 
       const response = await fetch(url, {
         method: 'POST',
@@ -88,7 +91,7 @@ const GroceryPage = () => {
         alert('Successful Added Item');
         // Fetch the updated data without reloading the window
         const updateResponse = await fetch(
-          'http://localhost:8080/api/grocery',
+          'https://munch-on-o6cg.onrender.com/api/grocery',
           {
             headers: {
               Authorization: `${token}`,
@@ -126,7 +129,7 @@ const GroceryPage = () => {
       const authToken = token; // Replace with your actual token
 
       // Update quantity using fetch
-      await fetch(`http://localhost:8080/api/grocery/${itemId}`, {
+      await fetch(`https://munch-on-o6cg.onrender.com/api/grocery/${itemId}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -145,7 +148,7 @@ const GroceryPage = () => {
   const handleDeleteGrocery = async (itemId) => {
     try {
       const authToken = token;
-      await fetch(`http://localhost:8080/api/grocery/${itemId}`, {
+      await fetch(`https://munch-on-o6cg.onrender.com/api/grocery/${itemId}`, {
         method: 'DELETE',
         headers: {
           Authorization: `${authToken}`,
@@ -163,7 +166,7 @@ const GroceryPage = () => {
     try {
       const authToken = token; // Assuming `token` is already defined
 
-      const url = 'http://localhost:8080/api/pantry/';
+      const url = 'https://munch-on-o6cg.onrender.com/api/pantry/';
 
       const response = await fetch(url, {
         method: 'POST',
@@ -177,7 +180,7 @@ const GroceryPage = () => {
       if (response.ok) {
         alert('Successful Added Item');
         const updateResponse = await fetch(
-          'http://localhost:8080/api/grocery',
+          'https://munch-on-o6cg.onrender.com/api/grocery',
           {
             headers: {
               Authorization: `${token}`,

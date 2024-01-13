@@ -40,7 +40,7 @@ const Calendar = () => {
       const authToken = token;
       const dateString = selectedDate.format('YYYY-MM-DD');
       const response = await fetch(
-        `http://localhost:8080/api/mealplans/${dateString}`,
+        `https://munch-on-o6cg.onrender.com/api/mealplans/${dateString}`,
         {
           headers: {
             Authorization: `${authToken}`,
@@ -75,7 +75,7 @@ const Calendar = () => {
     setSearchAttempted(true);
     try {
       const response = await axios.get(
-        `http://localhost:8080/api/recipes/search?query=${query}`
+        `https://munch-on-o6cg.onrender.com/api/recipes/search?query=${query}`
       );
       setRecipes(Array.isArray(response.data.data) ? response.data.data : []);
     } catch (error) {
@@ -89,7 +89,7 @@ const Calendar = () => {
     const dateString = date.format('YYYY-MM-DD');
     try {
       const response = await axios.post(
-        `http://localhost:8080/api/mealplans/create/${dateString}`,
+        `https://munch-on-o6cg.onrender.com/api/mealplans/create/${dateString}`,
         {
           mealType: mealType,
           recipeName: recipe.recipeName,
@@ -124,7 +124,7 @@ const Calendar = () => {
     const dateString = date.format('YYYY-MM-DD');
     try {
       const response = await axios.delete(
-        `http://localhost:8080/api/mealplans/delete/${dateString}/${mealType}/${recipeName}`,
+        `https://munch-on-o6cg.onrender.com/api/mealplans/delete/${dateString}/${mealType}/${recipeName}`,
         {
           headers: {
             Authorization: `${authToken}`,
